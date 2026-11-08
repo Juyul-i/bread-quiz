@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bread Quiz</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1>Bread Quiz 🥐</h1>
+      <p>TOUS les JOURS · BREAD STUDY</p>
+    </header>
+
+    <nav class="tabs">
+      <button id="quiz-tab" class="tab active" type="button">퀴즈 풀기</button>
+      <button id="admin-tab" class="tab" type="button">빵 관리</button>
+    </nav>
+
+    <section id="quiz-section" class="panel">
+      <div class="quiz-info">
+        <span>빵 이름 맞히기</span>
+        <span id="progress">0 / 0</span>
+      </div>
+
+      <div class="quiz-settings">
+        <label for="question-count">출제 문제 수</label>
+        <select id="question-count">
+          <option value="10">10문제</option>
+          <option value="20">20문제</option>
+          <option value="30">30문제</option>
+          <option value="40">40문제</option>
+          <option value="50">50문제</option>
+        </select>
+      </div>
+
+      <div class="progress-bar"><div id="progress-fill"></div></div>
+      <div id="quiz-content">
+        <p class="empty-message">빵 데이터를 불러오는 중이에요.</p>
+      </div>
+    </section>
+
+    <section id="admin-section" class="panel hidden">
+      <div id="login-area">
+        <h2>관리자 로그인</h2>
+        <p class="description">빵을 등록하거나 수정하려면 관리자 계정으로 로그인해 주세요.</p>
+        <form id="login-form" class="login-form">
+          <label for="login-email">이메일</label>
+          <input id="login-email" type="email" autocomplete="username" required>
+          <label for="login-password">비밀번호</label>
+          <input id="login-password" type="password" autocomplete="current-password" required>
+          <button class="primary" type="submit" id="login-button">로그인</button>
+        </form>
+        <p id="login-message" class="status-message" aria-live="polite"></p>
+      </div>
+
+      <div id="admin-content" class="hidden">
+        <div class="admin-heading">
+          <div>
+            <h2>빵 등록 및 관리</h2>
+            <p class="description">관리자 계정으로 로그인되어 있어요.</p>
+          </div>
+          <button id="logout-button" type="button" class="secondary logout-button">로그아웃</button>
+        </div>
+
+        <form id="bread-form">
+          <label for="bread-name">빵 이름</label>
+          <input id="bread-name" type="text" placeholder="예: 소보로빵" required>
+
+          <label>빵 사진</label>
+          <label for="bread-file" class="upload-box">
+            <img id="image-preview" alt="사진 미리보기">
+            <span id="upload-guide">📷 사진을 선택해 주세요</span>
+          </label>
+          <input id="bread-file" type="file" accept="image/*" hidden>
+
+          <label for="bread-hints">힌트</label>
+          <textarea id="bread-hints" rows="4" placeholder="힌트 하나당 한 줄씩 입력해 주세요.&#10;예: 겉면이 바삭해요.&#10;예: 달콤하고 고소해요."></textarea>
+          <p class="small-help">힌트는 한 줄에 하나씩 입력하면 돼요.</p>
+
+          <div class="form-buttons">
+            <button type="submit" id="save-button" class="primary">빵 등록하기</button>
+            <button type="button" id="cancel-button" class="secondary hidden">수정 취소</button>
+          </div>
+        </form>
+
+        <div class="list-header">
+          <h3>등록된 빵</h3>
+          <span id="bread-count">0개</span>
+        </div>
+        <div id="bread-list"></div>
+      </div>
+    </section>
+    <p id="app-status" class="app-status" aria-live="polite"></p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
